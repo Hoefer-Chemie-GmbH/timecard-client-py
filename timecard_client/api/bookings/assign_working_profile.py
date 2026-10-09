@@ -7,14 +7,17 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.assign_working_profile_body import AssignWorkingProfileBody
 from ...models.assign_working_profile_response_201 import AssignWorkingProfileResponse201
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     body: AssignWorkingProfileBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["idempotency-key"] = idempotency_key
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -58,10 +61,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: AssignWorkingProfileBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[AssignWorkingProfileResponse201]:
     """Assign an optional working time profile to persons for a period (timeCard user right 250)
 
     Args:
+        idempotency_key (str | Unset):
         body (AssignWorkingProfileBody):
 
     Raises:
@@ -74,6 +79,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
     )
 
     response = client.get_httpx_client().request(
@@ -87,10 +93,12 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     body: AssignWorkingProfileBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> AssignWorkingProfileResponse201 | None:
     """Assign an optional working time profile to persons for a period (timeCard user right 250)
 
     Args:
+        idempotency_key (str | Unset):
         body (AssignWorkingProfileBody):
 
     Raises:
@@ -104,6 +112,7 @@ def sync(
     return sync_detailed(
         client=client,
         body=body,
+        idempotency_key=idempotency_key,
     ).parsed
 
 
@@ -111,10 +120,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: AssignWorkingProfileBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[AssignWorkingProfileResponse201]:
     """Assign an optional working time profile to persons for a period (timeCard user right 250)
 
     Args:
+        idempotency_key (str | Unset):
         body (AssignWorkingProfileBody):
 
     Raises:
@@ -127,6 +138,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         body=body,
+        idempotency_key=idempotency_key,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -138,10 +150,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: AssignWorkingProfileBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> AssignWorkingProfileResponse201 | None:
     """Assign an optional working time profile to persons for a period (timeCard user right 250)
 
     Args:
+        idempotency_key (str | Unset):
         body (AssignWorkingProfileBody):
 
     Raises:
@@ -156,5 +170,6 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             body=body,
+            idempotency_key=idempotency_key,
         )
     ).parsed

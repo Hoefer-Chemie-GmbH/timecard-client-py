@@ -4,7 +4,7 @@ Python client for a REST facade in front of the time recording system REINER SCT
 
 This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER SCT and timeCard are trademarks of their respective owner.
 
-- API version `0.2.2`.
+- API version `0.3.0`.
 - Generated: `timecard_client/api/**` (one module per operation, grouped by tag), `timecard_client/models/**`, `client.py`, `errors.py`, `types.py`.
 - Hand-written: `timecard_client/google_auth.py` (Google ID tokens, refreshing client), `timecard_client/problem.py` (Problem Details), `timecard_client/photo.py` (photo upload, which the generator cannot express).
 
@@ -13,13 +13,13 @@ This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER
 From the Git tag of a version:
 
 ```
-pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.2.2"
+pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.3.0"
 ```
 
 or from the wheel attached to the GitHub release:
 
 ```
-pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.2.2/timecard_client-0.2.2-py3-none-any.whl
+pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.3.0/timecard_client-0.3.0-py3-none-any.whl
 ```
 
 Python 3.11 or newer. Dependencies: `httpx`, `attrs`, `python-dateutil`, `google-auth`, `requests`.
@@ -129,7 +129,7 @@ The facade answers every error with an RFC 9457 Problem Details body. A client f
 - **Data.** The facade reads and changes the data of the connected time recording installation. Ask the operator whether a separate test installation exists; without one, development and tests work on real personal data and fall under the same data protection rules as production.
 - **Write access.** The operator can release write access for selected persons only, for example a test person during development; calls for other persons answer `403` without reaching the time recording system.
 - **Rate limit.** The facade limits the calls per service account (by default 120 per minute) and answers `429` above it; spread bulk processing over time.
-- **Retries.** Retry reads after `502` or `503` with a pause; the facade itself already retries a read once against the time recording system. Do not repeat a failed write blindly: the time recording system has no idempotency keys, so a repeated write can book twice; read the current state first.
+- **Retries.** Retry reads after `502` or `503` with a pause; the facade itself already retries a read once against the time recording system. Send creating calls (`POST`) with an `Idempotency-Key` header, e.g. a UUID per business operation, and repeat a failed call with the same key: the facade executes it once and answers a repeat with the stored response and the header `Idempotent-Replayed: true` (`409` if the first call has no result yet, `422` if the key was used for a different request). Do not repeat changing or deleting calls blindly; read the current state first.
 - **Audit.** The facade records every call with the service account, route, parameters and status.
 - **Versions.** Install a fixed version (Git tag) and update deliberately; before 1.0.0 a minor version may contain incompatible changes.
 
