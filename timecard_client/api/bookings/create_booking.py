@@ -14,8 +14,11 @@ def _get_kwargs(
     *,
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
+    idempotency_key: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["idempotency-key"] = idempotency_key
 
     params: dict[str, Any] = {}
 
@@ -67,11 +70,13 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[CreateBookingResponse201]:
     """Create a time or project booking
 
     Args:
         calculate (str | Unset):
+        idempotency_key (str | Unset):
         body (CreateBookingBody):
 
     Raises:
@@ -85,6 +90,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         body=body,
         calculate=calculate,
+        idempotency_key=idempotency_key,
     )
 
     response = client.get_httpx_client().request(
@@ -99,11 +105,13 @@ def sync(
     client: AuthenticatedClient | Client,
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
+    idempotency_key: str | Unset = UNSET,
 ) -> CreateBookingResponse201 | None:
     """Create a time or project booking
 
     Args:
         calculate (str | Unset):
+        idempotency_key (str | Unset):
         body (CreateBookingBody):
 
     Raises:
@@ -118,6 +126,7 @@ def sync(
         client=client,
         body=body,
         calculate=calculate,
+        idempotency_key=idempotency_key,
     ).parsed
 
 
@@ -126,11 +135,13 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[CreateBookingResponse201]:
     """Create a time or project booking
 
     Args:
         calculate (str | Unset):
+        idempotency_key (str | Unset):
         body (CreateBookingBody):
 
     Raises:
@@ -144,6 +155,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         body=body,
         calculate=calculate,
+        idempotency_key=idempotency_key,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -156,11 +168,13 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
+    idempotency_key: str | Unset = UNSET,
 ) -> CreateBookingResponse201 | None:
     """Create a time or project booking
 
     Args:
         calculate (str | Unset):
+        idempotency_key (str | Unset):
         body (CreateBookingBody):
 
     Raises:
@@ -176,5 +190,6 @@ async def asyncio(
             client=client,
             body=body,
             calculate=calculate,
+            idempotency_key=idempotency_key,
         )
     ).parsed

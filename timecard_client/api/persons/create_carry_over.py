@@ -8,7 +8,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_carry_over_body import CreateCarryOverBody
 from ...models.create_carry_over_response_201 import CreateCarryOverResponse201
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -16,8 +16,11 @@ def _get_kwargs(
     calculation_id: int,
     *,
     body: CreateCarryOverBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+    if not isinstance(idempotency_key, Unset):
+        headers["idempotency-key"] = idempotency_key
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -66,12 +69,14 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: CreateCarryOverBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[CreateCarryOverResponse201]:
     """Create a manual carry-over (timeCard user right 223 create)
 
     Args:
         person_id (int):
         calculation_id (int):
+        idempotency_key (str | Unset):
         body (CreateCarryOverBody):
 
     Raises:
@@ -86,6 +91,7 @@ def sync_detailed(
         person_id=person_id,
         calculation_id=calculation_id,
         body=body,
+        idempotency_key=idempotency_key,
     )
 
     response = client.get_httpx_client().request(
@@ -101,12 +107,14 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     body: CreateCarryOverBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> CreateCarryOverResponse201 | None:
     """Create a manual carry-over (timeCard user right 223 create)
 
     Args:
         person_id (int):
         calculation_id (int):
+        idempotency_key (str | Unset):
         body (CreateCarryOverBody):
 
     Raises:
@@ -122,6 +130,7 @@ def sync(
         calculation_id=calculation_id,
         client=client,
         body=body,
+        idempotency_key=idempotency_key,
     ).parsed
 
 
@@ -131,12 +140,14 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: CreateCarryOverBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> Response[CreateCarryOverResponse201]:
     """Create a manual carry-over (timeCard user right 223 create)
 
     Args:
         person_id (int):
         calculation_id (int):
+        idempotency_key (str | Unset):
         body (CreateCarryOverBody):
 
     Raises:
@@ -151,6 +162,7 @@ async def asyncio_detailed(
         person_id=person_id,
         calculation_id=calculation_id,
         body=body,
+        idempotency_key=idempotency_key,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -164,12 +176,14 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: CreateCarryOverBody,
+    idempotency_key: str | Unset = UNSET,
 ) -> CreateCarryOverResponse201 | None:
     """Create a manual carry-over (timeCard user right 223 create)
 
     Args:
         person_id (int):
         calculation_id (int):
+        idempotency_key (str | Unset):
         body (CreateCarryOverBody):
 
     Raises:
@@ -186,5 +200,6 @@ async def asyncio(
             calculation_id=calculation_id,
             client=client,
             body=body,
+            idempotency_key=idempotency_key,
         )
     ).parsed
