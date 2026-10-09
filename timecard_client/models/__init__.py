@@ -250,6 +250,9 @@ from .list_work_operations_response_200 import ListWorkOperationsResponse200
 from .list_work_operations_response_200_items_item import ListWorkOperationsResponse200ItemsItem
 from .list_working_profiles_response_200 import ListWorkingProfilesResponse200
 from .list_working_profiles_response_200_items_item import ListWorkingProfilesResponse200ItemsItem
+from .problem import Problem
+from .problem_errors_item import ProblemErrorsItem
+from .problem_upstream import ProblemUpstream
 from .replace_carry_over_body import ReplaceCarryOverBody
 from .replace_carry_over_response_200 import ReplaceCarryOverResponse200
 from .replace_carry_over_response_200_unit import ReplaceCarryOverResponse200Unit
@@ -532,6 +535,9 @@ __all__ = (
     "ListWorkingProfilesResponse200ItemsItem",
     "ListWorkOperationsResponse200",
     "ListWorkOperationsResponse200ItemsItem",
+    "Problem",
+    "ProblemErrorsItem",
+    "ProblemUpstream",
     "ReplaceCarryOverBody",
     "ReplaceCarryOverResponse200",
     "ReplaceCarryOverResponse200Unit",

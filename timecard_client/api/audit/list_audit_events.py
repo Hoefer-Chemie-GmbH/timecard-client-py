@@ -9,6 +9,7 @@ from ...models.list_audit_events_action import ListAuditEventsAction
 from ...models.list_audit_events_format import ListAuditEventsFormat
 from ...models.list_audit_events_outcome import ListAuditEventsOutcome
 from ...models.list_audit_events_response_200 import ListAuditEventsResponse200
+from ...models.problem import Problem
 from ...types import UNSET, Response, Unset
 
 
@@ -82,11 +83,46 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> ListAuditEventsResponse200 | None:
+) -> ListAuditEventsResponse200 | Problem | None:
     if response.status_code == 200:
         response_200 = ListAuditEventsResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -96,7 +132,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[ListAuditEventsResponse200]:
+) -> Response[ListAuditEventsResponse200 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -121,7 +157,7 @@ def sync_detailed(
     page: int | Unset = 1,
     page_size: int | Unset = 100,
     format_: ListAuditEventsFormat | Unset = ListAuditEventsFormat.JSON,
-) -> Response[ListAuditEventsResponse200]:
+) -> Response[ListAuditEventsResponse200 | Problem]:
     """Query audit events (JSON or CSV)
 
     Args:
@@ -144,7 +180,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ListAuditEventsResponse200]
+        Response[ListAuditEventsResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -186,7 +222,7 @@ def sync(
     page: int | Unset = 1,
     page_size: int | Unset = 100,
     format_: ListAuditEventsFormat | Unset = ListAuditEventsFormat.JSON,
-) -> ListAuditEventsResponse200 | None:
+) -> ListAuditEventsResponse200 | Problem | None:
     """Query audit events (JSON or CSV)
 
     Args:
@@ -209,7 +245,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ListAuditEventsResponse200
+        ListAuditEventsResponse200 | Problem
     """
 
     return sync_detailed(
@@ -246,7 +282,7 @@ async def asyncio_detailed(
     page: int | Unset = 1,
     page_size: int | Unset = 100,
     format_: ListAuditEventsFormat | Unset = ListAuditEventsFormat.JSON,
-) -> Response[ListAuditEventsResponse200]:
+) -> Response[ListAuditEventsResponse200 | Problem]:
     """Query audit events (JSON or CSV)
 
     Args:
@@ -269,7 +305,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ListAuditEventsResponse200]
+        Response[ListAuditEventsResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -309,7 +345,7 @@ async def asyncio(
     page: int | Unset = 1,
     page_size: int | Unset = 100,
     format_: ListAuditEventsFormat | Unset = ListAuditEventsFormat.JSON,
-) -> ListAuditEventsResponse200 | None:
+) -> ListAuditEventsResponse200 | Problem | None:
     """Query audit events (JSON or CSV)
 
     Args:
@@ -332,7 +368,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ListAuditEventsResponse200
+        ListAuditEventsResponse200 | Problem
     """
 
     return (

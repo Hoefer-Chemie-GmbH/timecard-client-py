@@ -7,6 +7,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.get_person_calendar_response_200 import GetPersonCalendarResponse200
+from ...models.problem import Problem
 from ...types import UNSET, Response, Unset
 
 
@@ -38,11 +39,56 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> GetPersonCalendarResponse200 | None:
+) -> GetPersonCalendarResponse200 | Problem | None:
     if response.status_code == 200:
         response_200 = GetPersonCalendarResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = Problem.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 502:
+        response_502 = Problem.from_dict(response.json())
+
+        return response_502
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -52,7 +98,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[GetPersonCalendarResponse200]:
+) -> Response[GetPersonCalendarResponse200 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,7 +113,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     month: str,
     public_holidays_only: str | Unset = UNSET,
-) -> Response[GetPersonCalendarResponse200]:
+) -> Response[GetPersonCalendarResponse200 | Problem]:
     """Calendar (public holidays, absences, sickness, irregularities) for two months from the given month
 
     Args:
@@ -80,7 +126,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetPersonCalendarResponse200]
+        Response[GetPersonCalendarResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -102,7 +148,7 @@ def sync(
     client: AuthenticatedClient | Client,
     month: str,
     public_holidays_only: str | Unset = UNSET,
-) -> GetPersonCalendarResponse200 | None:
+) -> GetPersonCalendarResponse200 | Problem | None:
     """Calendar (public holidays, absences, sickness, irregularities) for two months from the given month
 
     Args:
@@ -115,7 +161,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetPersonCalendarResponse200
+        GetPersonCalendarResponse200 | Problem
     """
 
     return sync_detailed(
@@ -132,7 +178,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     month: str,
     public_holidays_only: str | Unset = UNSET,
-) -> Response[GetPersonCalendarResponse200]:
+) -> Response[GetPersonCalendarResponse200 | Problem]:
     """Calendar (public holidays, absences, sickness, irregularities) for two months from the given month
 
     Args:
@@ -145,7 +191,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetPersonCalendarResponse200]
+        Response[GetPersonCalendarResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -165,7 +211,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     month: str,
     public_holidays_only: str | Unset = UNSET,
-) -> GetPersonCalendarResponse200 | None:
+) -> GetPersonCalendarResponse200 | Problem | None:
     """Calendar (public holidays, absences, sickness, irregularities) for two months from the given month
 
     Args:
@@ -178,7 +224,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetPersonCalendarResponse200
+        GetPersonCalendarResponse200 | Problem
     """
 
     return (

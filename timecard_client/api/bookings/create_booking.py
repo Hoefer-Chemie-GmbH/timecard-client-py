@@ -7,6 +7,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_booking_body import CreateBookingBody
 from ...models.create_booking_response_201 import CreateBookingResponse201
+from ...models.problem import Problem
 from ...types import UNSET, Response, Unset
 
 
@@ -42,11 +43,56 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> CreateBookingResponse201 | None:
+) -> CreateBookingResponse201 | Problem | None:
     if response.status_code == 201:
         response_201 = CreateBookingResponse201.from_dict(response.json())
 
         return response_201
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 409:
+        response_409 = Problem.from_dict(response.json())
+
+        return response_409
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 502:
+        response_502 = Problem.from_dict(response.json())
+
+        return response_502
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -56,7 +102,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[CreateBookingResponse201]:
+) -> Response[CreateBookingResponse201 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,7 +117,7 @@ def sync_detailed(
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
-) -> Response[CreateBookingResponse201]:
+) -> Response[CreateBookingResponse201 | Problem]:
     """Create a time or project booking
 
     Args:
@@ -84,7 +130,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CreateBookingResponse201]
+        Response[CreateBookingResponse201 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -106,7 +152,7 @@ def sync(
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
-) -> CreateBookingResponse201 | None:
+) -> CreateBookingResponse201 | Problem | None:
     """Create a time or project booking
 
     Args:
@@ -119,7 +165,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CreateBookingResponse201
+        CreateBookingResponse201 | Problem
     """
 
     return sync_detailed(
@@ -136,7 +182,7 @@ async def asyncio_detailed(
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
-) -> Response[CreateBookingResponse201]:
+) -> Response[CreateBookingResponse201 | Problem]:
     """Create a time or project booking
 
     Args:
@@ -149,7 +195,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[CreateBookingResponse201]
+        Response[CreateBookingResponse201 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -169,7 +215,7 @@ async def asyncio(
     body: CreateBookingBody,
     calculate: str | Unset = UNSET,
     idempotency_key: str | Unset = UNSET,
-) -> CreateBookingResponse201 | None:
+) -> CreateBookingResponse201 | Problem | None:
     """Create a time or project booking
 
     Args:
@@ -182,7 +228,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        CreateBookingResponse201
+        CreateBookingResponse201 | Problem
     """
 
     return (

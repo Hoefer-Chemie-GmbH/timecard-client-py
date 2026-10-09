@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.get_me_response_200 import GetMeResponse200
+from ...models.problem import Problem
 from ...types import Response
 
 
@@ -19,11 +20,38 @@ def _get_kwargs() -> dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> GetMeResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> GetMeResponse200 | Problem | None:
     if response.status_code == 200:
         response_200 = GetMeResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -31,7 +59,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[GetMeResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[GetMeResponse200 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -43,7 +73,7 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetMeResponse200]:
+) -> Response[GetMeResponse200 | Problem]:
     """Information about the calling service account
 
     Raises:
@@ -51,7 +81,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetMeResponse200]
+        Response[GetMeResponse200 | Problem]
     """
 
     kwargs = _get_kwargs()
@@ -66,7 +96,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-) -> GetMeResponse200 | None:
+) -> GetMeResponse200 | Problem | None:
     """Information about the calling service account
 
     Raises:
@@ -74,7 +104,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetMeResponse200
+        GetMeResponse200 | Problem
     """
 
     return sync_detailed(
@@ -85,7 +115,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetMeResponse200]:
+) -> Response[GetMeResponse200 | Problem]:
     """Information about the calling service account
 
     Raises:
@@ -93,7 +123,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetMeResponse200]
+        Response[GetMeResponse200 | Problem]
     """
 
     kwargs = _get_kwargs()
@@ -106,7 +136,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-) -> GetMeResponse200 | None:
+) -> GetMeResponse200 | Problem | None:
     """Information about the calling service account
 
     Raises:
@@ -114,7 +144,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetMeResponse200
+        GetMeResponse200 | Problem
     """
 
     return (
