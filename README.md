@@ -4,7 +4,7 @@ Python client for a REST facade in front of the time recording system REINER SCT
 
 This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER SCT and timeCard are trademarks of their respective owner.
 
-- API version `0.2.0`.
+- API version `0.2.1`.
 - Generated: `timecard_client/api/**` (one module per operation, grouped by tag), `timecard_client/models/**`, `client.py`, `errors.py`, `types.py`.
 - Hand-written: `timecard_client/google_auth.py` (Google ID tokens, refreshing client), `timecard_client/problem.py` (Problem Details), `timecard_client/photo.py` (photo upload, which the generator cannot express).
 
@@ -13,13 +13,13 @@ This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER
 From the Git tag of a version:
 
 ```
-pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.2.0"
+pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.2.1"
 ```
 
 or from the wheel attached to the GitHub release:
 
 ```
-pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.2.0/timecard_client-0.2.0-py3-none-any.whl
+pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.2.1/timecard_client-0.2.1-py3-none-any.whl
 ```
 
 Python 3.11 or newer. Dependencies: `httpx`, `attrs`, `python-dateutil`, `google-auth`, `requests`.
