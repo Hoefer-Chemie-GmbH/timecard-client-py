@@ -40,6 +40,12 @@ from .create_person_response_201_time_recording_supervisors_item import (
 from .create_person_response_201_time_recording_working_profile import (
     CreatePersonResponse201TimeRecordingWorkingProfile,
 )
+from .create_project_body import CreateProjectBody
+from .create_project_response_201 import CreateProjectResponse201
+from .create_project_response_201_free_fields_item import CreateProjectResponse201FreeFieldsItem
+from .create_project_response_201_free_fields_item_lookup_type_0_item import (
+    CreateProjectResponse201FreeFieldsItemLookupType0Item,
+)
 from .create_work_operation_body import CreateWorkOperationBody
 from .create_work_operation_response_201 import CreateWorkOperationResponse201
 from .create_work_operation_response_201_free_fields_item import CreateWorkOperationResponse201FreeFieldsItem
@@ -274,6 +280,12 @@ from .update_person_response_200_time_recording_supervisors_item import (
 from .update_person_response_200_time_recording_working_profile import (
     UpdatePersonResponse200TimeRecordingWorkingProfile,
 )
+from .update_project_body import UpdateProjectBody
+from .update_project_response_200 import UpdateProjectResponse200
+from .update_project_response_200_free_fields_item import UpdateProjectResponse200FreeFieldsItem
+from .update_project_response_200_free_fields_item_lookup_type_0_item import (
+    UpdateProjectResponse200FreeFieldsItemLookupType0Item,
+)
 from .update_work_operation_body import UpdateWorkOperationBody
 from .update_work_operation_response_200 import UpdateWorkOperationResponse200
 from .update_work_operation_response_200_free_fields_item import UpdateWorkOperationResponse200FreeFieldsItem
@@ -360,6 +372,10 @@ __all__ = (
     "CreatePersonResponse201TimeRecordingHoliday",
     "CreatePersonResponse201TimeRecordingSupervisorsItem",
     "CreatePersonResponse201TimeRecordingWorkingProfile",
+    "CreateProjectBody",
+    "CreateProjectResponse201",
+    "CreateProjectResponse201FreeFieldsItem",
+    "CreateProjectResponse201FreeFieldsItemLookupType0Item",
     "CreateWorkOperationBody",
     "CreateWorkOperationResponse201",
     "CreateWorkOperationResponse201FreeFieldsItem",
@@ -538,6 +554,10 @@ __all__ = (
     "UpdatePersonResponse200TimeRecordingHoliday",
     "UpdatePersonResponse200TimeRecordingSupervisorsItem",
     "UpdatePersonResponse200TimeRecordingWorkingProfile",
+    "UpdateProjectBody",
+    "UpdateProjectResponse200",
+    "UpdateProjectResponse200FreeFieldsItem",
+    "UpdateProjectResponse200FreeFieldsItemLookupType0Item",
     "UpdateWorkOperationBody",
     "UpdateWorkOperationResponse200",
     "UpdateWorkOperationResponse200FreeFieldsItem",
