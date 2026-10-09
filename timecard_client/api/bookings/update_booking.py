@@ -6,6 +6,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.problem import Problem
 from ...models.update_booking_body import UpdateBookingBody
 from ...models.update_booking_response_200 import UpdateBookingResponse200
 from ...types import UNSET, Response
@@ -43,11 +44,61 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> UpdateBookingResponse200 | None:
+) -> Problem | UpdateBookingResponse200 | None:
     if response.status_code == 200:
         response_200 = UpdateBookingResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = Problem.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 409:
+        response_409 = Problem.from_dict(response.json())
+
+        return response_409
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 502:
+        response_502 = Problem.from_dict(response.json())
+
+        return response_502
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -57,7 +108,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[UpdateBookingResponse200]:
+) -> Response[Problem | UpdateBookingResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,7 +123,7 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: UpdateBookingBody,
     person_id: int,
-) -> Response[UpdateBookingResponse200]:
+) -> Response[Problem | UpdateBookingResponse200]:
     """Update a booking (timestamp, absence type, project, work operation, comment)
 
     Args:
@@ -85,7 +136,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[UpdateBookingResponse200]
+        Response[Problem | UpdateBookingResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -107,7 +158,7 @@ def sync(
     client: AuthenticatedClient | Client,
     body: UpdateBookingBody,
     person_id: int,
-) -> UpdateBookingResponse200 | None:
+) -> Problem | UpdateBookingResponse200 | None:
     """Update a booking (timestamp, absence type, project, work operation, comment)
 
     Args:
@@ -120,7 +171,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        UpdateBookingResponse200
+        Problem | UpdateBookingResponse200
     """
 
     return sync_detailed(
@@ -137,7 +188,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: UpdateBookingBody,
     person_id: int,
-) -> Response[UpdateBookingResponse200]:
+) -> Response[Problem | UpdateBookingResponse200]:
     """Update a booking (timestamp, absence type, project, work operation, comment)
 
     Args:
@@ -150,7 +201,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[UpdateBookingResponse200]
+        Response[Problem | UpdateBookingResponse200]
     """
 
     kwargs = _get_kwargs(
@@ -170,7 +221,7 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: UpdateBookingBody,
     person_id: int,
-) -> UpdateBookingResponse200 | None:
+) -> Problem | UpdateBookingResponse200 | None:
     """Update a booking (timestamp, absence type, project, work operation, comment)
 
     Args:
@@ -183,7 +234,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        UpdateBookingResponse200
+        Problem | UpdateBookingResponse200
     """
 
     return (

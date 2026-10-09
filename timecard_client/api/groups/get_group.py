@@ -7,6 +7,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.get_group_response_200 import GetGroupResponse200
+from ...models.problem import Problem
 from ...types import Response
 
 
@@ -24,11 +25,58 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> GetGroupResponse200 | None:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> GetGroupResponse200 | Problem | None:
     if response.status_code == 200:
         response_200 = GetGroupResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 404:
+        response_404 = Problem.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 502:
+        response_502 = Problem.from_dict(response.json())
+
+        return response_502
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -36,7 +84,9 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
         return None
 
 
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[GetGroupResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[GetGroupResponse200 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -49,7 +99,7 @@ def sync_detailed(
     group_id: int,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetGroupResponse200]:
+) -> Response[GetGroupResponse200 | Problem]:
     """Group details
 
     Args:
@@ -60,7 +110,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetGroupResponse200]
+        Response[GetGroupResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -78,7 +128,7 @@ def sync(
     group_id: int,
     *,
     client: AuthenticatedClient | Client,
-) -> GetGroupResponse200 | None:
+) -> GetGroupResponse200 | Problem | None:
     """Group details
 
     Args:
@@ -89,7 +139,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetGroupResponse200
+        GetGroupResponse200 | Problem
     """
 
     return sync_detailed(
@@ -102,7 +152,7 @@ async def asyncio_detailed(
     group_id: int,
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetGroupResponse200]:
+) -> Response[GetGroupResponse200 | Problem]:
     """Group details
 
     Args:
@@ -113,7 +163,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetGroupResponse200]
+        Response[GetGroupResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -129,7 +179,7 @@ async def asyncio(
     group_id: int,
     *,
     client: AuthenticatedClient | Client,
-) -> GetGroupResponse200 | None:
+) -> GetGroupResponse200 | Problem | None:
     """Group details
 
     Args:
@@ -140,7 +190,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetGroupResponse200
+        GetGroupResponse200 | Problem
     """
 
     return (

@@ -7,6 +7,7 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.get_health_response_200 import GetHealthResponse200
 from ...models.get_health_response_503 import GetHealthResponse503
+from ...models.problem import Problem
 from ...types import UNSET, Response, Unset
 
 
@@ -32,11 +33,16 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> GetHealthResponse200 | GetHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | Problem | None:
     if response.status_code == 200:
         response_200 = GetHealthResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
 
     if response.status_code == 503:
         response_503 = GetHealthResponse503.from_dict(response.json())
@@ -51,7 +57,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[GetHealthResponse200 | GetHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,7 +70,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     deep: str | Unset = UNSET,
-) -> Response[GetHealthResponse200 | GetHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503 | Problem]:
     """Health check (no token required)
 
     Args:
@@ -75,7 +81,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetHealthResponse200 | GetHealthResponse503]
+        Response[GetHealthResponse200 | GetHealthResponse503 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -93,7 +99,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     deep: str | Unset = UNSET,
-) -> GetHealthResponse200 | GetHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | Problem | None:
     """Health check (no token required)
 
     Args:
@@ -104,7 +110,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetHealthResponse200 | GetHealthResponse503
+        GetHealthResponse200 | GetHealthResponse503 | Problem
     """
 
     return sync_detailed(
@@ -117,7 +123,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     deep: str | Unset = UNSET,
-) -> Response[GetHealthResponse200 | GetHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503 | Problem]:
     """Health check (no token required)
 
     Args:
@@ -128,7 +134,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetHealthResponse200 | GetHealthResponse503]
+        Response[GetHealthResponse200 | GetHealthResponse503 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -144,7 +150,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     deep: str | Unset = UNSET,
-) -> GetHealthResponse200 | GetHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | Problem | None:
     """Health check (no token required)
 
     Args:
@@ -155,7 +161,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetHealthResponse200 | GetHealthResponse503
+        GetHealthResponse200 | GetHealthResponse503 | Problem
     """
 
     return (

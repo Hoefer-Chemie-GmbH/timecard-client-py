@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.list_break_rules_response_200 import ListBreakRulesResponse200
+from ...models.problem import Problem
 from ...types import UNSET, Response, Unset
 
 
@@ -31,11 +32,51 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> ListBreakRulesResponse200 | None:
+) -> ListBreakRulesResponse200 | Problem | None:
     if response.status_code == 200:
         response_200 = ListBreakRulesResponse200.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
+    if response.status_code == 401:
+        response_401 = Problem.from_dict(response.json())
+
+        return response_401
+
+    if response.status_code == 403:
+        response_403 = Problem.from_dict(response.json())
+
+        return response_403
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
+
+    if response.status_code == 429:
+        response_429 = Problem.from_dict(response.json())
+
+        return response_429
+
+    if response.status_code == 500:
+        response_500 = Problem.from_dict(response.json())
+
+        return response_500
+
+    if response.status_code == 502:
+        response_502 = Problem.from_dict(response.json())
+
+        return response_502
+
+    if response.status_code == 503:
+        response_503 = Problem.from_dict(response.json())
+
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -45,7 +86,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[ListBreakRulesResponse200]:
+) -> Response[ListBreakRulesResponse200 | Problem]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,7 +99,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     active_only: str | Unset = UNSET,
-) -> Response[ListBreakRulesResponse200]:
+) -> Response[ListBreakRulesResponse200 | Problem]:
     """Break rules
 
     Args:
@@ -69,7 +110,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ListBreakRulesResponse200]
+        Response[ListBreakRulesResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -87,7 +128,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     active_only: str | Unset = UNSET,
-) -> ListBreakRulesResponse200 | None:
+) -> ListBreakRulesResponse200 | Problem | None:
     """Break rules
 
     Args:
@@ -98,7 +139,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ListBreakRulesResponse200
+        ListBreakRulesResponse200 | Problem
     """
 
     return sync_detailed(
@@ -111,7 +152,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     active_only: str | Unset = UNSET,
-) -> Response[ListBreakRulesResponse200]:
+) -> Response[ListBreakRulesResponse200 | Problem]:
     """Break rules
 
     Args:
@@ -122,7 +163,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ListBreakRulesResponse200]
+        Response[ListBreakRulesResponse200 | Problem]
     """
 
     kwargs = _get_kwargs(
@@ -138,7 +179,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     active_only: str | Unset = UNSET,
-) -> ListBreakRulesResponse200 | None:
+) -> ListBreakRulesResponse200 | Problem | None:
     """Break rules
 
     Args:
@@ -149,7 +190,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ListBreakRulesResponse200
+        ListBreakRulesResponse200 | Problem
     """
 
     return (
