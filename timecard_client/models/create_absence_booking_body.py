@@ -23,8 +23,11 @@ class CreateAbsenceBookingBody:
         weekdays (list[CreateAbsenceBookingBodyWeekdaysItem] | Unset):
         include_free_days (bool | Unset): also book on days off according to the working time profile Default: False.
         half_day (bool | Unset):  Default: False.
-        percent (int | Unset): share of the day in percent; mutually exclusive with halfDay
-        start_time (str | Unset):
+        percent (int | Unset): share of the target time in percent; only for absence types kept in hours (timeCard
+            ignores it for vacation)
+        duration (str | Unset): duration per day as HH:MM; only for absence types kept in hours (timeCard ignores it for
+            vacation)
+        start_time (str | Unset): start of the absence; stored as text only, timeCard does not evaluate it
         comment (str | Unset):  Default: ''.
     """
 
@@ -36,6 +39,7 @@ class CreateAbsenceBookingBody:
     include_free_days: bool | Unset = False
     half_day: bool | Unset = False
     percent: int | Unset = UNSET
+    duration: str | Unset = UNSET
     start_time: str | Unset = UNSET
     comment: str | Unset = ""
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -62,6 +66,8 @@ class CreateAbsenceBookingBody:
 
         percent = self.percent
 
+        duration = self.duration
+
         start_time = self.start_time
 
         comment = self.comment
@@ -84,6 +90,8 @@ class CreateAbsenceBookingBody:
             field_dict["halfDay"] = half_day
         if percent is not UNSET:
             field_dict["percent"] = percent
+        if duration is not UNSET:
+            field_dict["duration"] = duration
         if start_time is not UNSET:
             field_dict["startTime"] = start_time
         if comment is not UNSET:
@@ -117,6 +125,8 @@ class CreateAbsenceBookingBody:
 
         percent = d.pop("percent", UNSET)
 
+        duration = d.pop("duration", UNSET)
+
         start_time = d.pop("startTime", UNSET)
 
         comment = d.pop("comment", UNSET)
@@ -130,6 +140,7 @@ class CreateAbsenceBookingBody:
             include_free_days=include_free_days,
             half_day=half_day,
             percent=percent,
+            duration=duration,
             start_time=start_time,
             comment=comment,
         )
