@@ -242,6 +242,9 @@ from .list_persons_state import ListPersonsState
 from .list_presence_response_200 import ListPresenceResponse200
 from .list_presence_response_200_items_item import ListPresenceResponse200ItemsItem
 from .list_presence_response_200_items_item_status import ListPresenceResponse200ItemsItemStatus
+from .list_presence_status_response_200 import ListPresenceStatusResponse200
+from .list_presence_status_response_200_items_item import ListPresenceStatusResponse200ItemsItem
+from .list_presence_status_response_200_items_item_status import ListPresenceStatusResponse200ItemsItemStatus
 from .list_project_work_operations_response_200 import ListProjectWorkOperationsResponse200
 from .list_project_work_operations_response_200_items_item import ListProjectWorkOperationsResponse200ItemsItem
 from .list_projects_response_200 import ListProjectsResponse200
@@ -527,6 +530,9 @@ __all__ = (
     "ListPresenceResponse200",
     "ListPresenceResponse200ItemsItem",
     "ListPresenceResponse200ItemsItemStatus",
+    "ListPresenceStatusResponse200",
+    "ListPresenceStatusResponse200ItemsItem",
+    "ListPresenceStatusResponse200ItemsItemStatus",
     "ListProjectsResponse200",
     "ListProjectsResponse200ItemsItem",
     "ListProjectWorkOperationsResponse200",
