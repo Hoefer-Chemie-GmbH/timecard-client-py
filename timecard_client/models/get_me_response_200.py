@@ -17,6 +17,7 @@ class GetMeResponse200:
         subject (str):
         display_name (str):
         scopes (list[str]):
+        departments (list[str] | None): departments whose persons the account sees; null = all persons
         token_expires_at (str):
     """
 
@@ -25,6 +26,7 @@ class GetMeResponse200:
     subject: str
     display_name: str
     scopes: list[str]
+    departments: list[str] | None
     token_expires_at: str
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,6 +40,13 @@ class GetMeResponse200:
 
         scopes = self.scopes
 
+        departments: list[str] | None
+        if isinstance(self.departments, list):
+            departments = self.departments
+
+        else:
+            departments = self.departments
+
         token_expires_at = self.token_expires_at
 
         field_dict: dict[str, Any] = {}
@@ -49,6 +58,7 @@ class GetMeResponse200:
                 "subject": subject,
                 "displayName": display_name,
                 "scopes": scopes,
+                "departments": departments,
                 "tokenExpiresAt": token_expires_at,
             }
         )
@@ -68,6 +78,21 @@ class GetMeResponse200:
 
         scopes = cast(list[str], d.pop("scopes"))
 
+        def _parse_departments(data: object) -> list[str] | None:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, list):
+                    raise TypeError()
+                departments_type_0 = cast(list[str], data)
+
+                return departments_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(list[str] | None, data)
+
+        departments = _parse_departments(d.pop("departments"))
+
         token_expires_at = d.pop("tokenExpiresAt")
 
         get_me_response_200 = cls(
@@ -76,6 +101,7 @@ class GetMeResponse200:
             subject=subject,
             display_name=display_name,
             scopes=scopes,
+            departments=departments,
             token_expires_at=token_expires_at,
         )
 

@@ -4,7 +4,7 @@ Python client for a REST facade in front of the time recording system REINER SCT
 
 This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER SCT and timeCard are trademarks of their respective owner.
 
-- API version `0.5.0`.
+- API version `0.6.0`.
 - Generated: `timecard_client/api/**` (one module per operation, grouped by tag), `timecard_client/models/**`, `client.py`, `errors.py`, `types.py`.
 - Hand-written: `timecard_client/google_auth.py` (Google ID tokens, refreshing client), `timecard_client/problem.py` (Problem Details), `timecard_client/photo.py` (photo upload, which the generator cannot express).
 
@@ -13,13 +13,13 @@ This project is not affiliated with, endorsed or sponsored by REINER SCT. REINER
 From the Git tag of a version:
 
 ```
-pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.5.0"
+pip install "timecard-client @ git+https://github.com/Hoefer-Chemie-GmbH/timecard-client-py@v0.6.0"
 ```
 
 or from the wheel attached to the GitHub release:
 
 ```
-pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.5.0/timecard_client-0.5.0-py3-none-any.whl
+pip install https://github.com/Hoefer-Chemie-GmbH/timecard-client-py/releases/download/v0.6.0/timecard_client-0.6.0-py3-none-any.whl
 ```
 
 Python 3.11 or newer. Dependencies: `httpx`, `attrs`, `python-dateutil`, `google-auth`, `requests`.
@@ -107,6 +107,7 @@ client = RefreshingClient(base_url=base_url, token_source=MetadataTokenSource(ba
 | `masterdata:delete` | delete projects and work operations |
 | `presence:read` | presence display |
 | `presence:status` | presence status only (person id and present/absent, no names or reasons) |
+| `availability:read` | availability per person and day (available, partly, unavailable, unknown), no names or reasons |
 | `audit:read` | the facade's audit log |
 
 A call outside the scopes of the service account answers `403` with a Problem Details body.

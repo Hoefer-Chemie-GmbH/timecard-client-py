@@ -7,14 +7,28 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.list_presence_status_response_200 import ListPresenceStatusResponse200
 from ...models.problem import Problem
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
-def _get_kwargs() -> dict[str, Any]:
+def _get_kwargs(
+    *,
+    department: list[str] | Unset = UNSET,
+) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    json_department: list[str] | Unset = UNSET
+    if not isinstance(department, Unset):
+        json_department = department
+
+    params["department"] = json_department
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v1/presence/status",
+        "params": params,
     }
 
     return _kwargs
@@ -28,6 +42,11 @@ def _parse_response(
 
         return response_200
 
+    if response.status_code == 400:
+        response_400 = Problem.from_dict(response.json())
+
+        return response_400
+
     if response.status_code == 401:
         response_401 = Problem.from_dict(response.json())
 
@@ -37,6 +56,11 @@ def _parse_response(
         response_403 = Problem.from_dict(response.json())
 
         return response_403
+
+    if response.status_code == 422:
+        response_422 = Problem.from_dict(response.json())
+
+        return response_422
 
     if response.status_code == 429:
         response_429 = Problem.from_dict(response.json())
@@ -78,9 +102,13 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+    department: list[str] | Unset = UNSET,
 ) -> Response[ListPresenceStatusResponse200 | Problem]:
     """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
     ABSENT; no names, no reasons)
+
+    Args:
+        department (list[str] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -90,7 +118,9 @@ def sync_detailed(
         Response[ListPresenceStatusResponse200 | Problem]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        department=department,
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -102,9 +132,13 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
+    department: list[str] | Unset = UNSET,
 ) -> ListPresenceStatusResponse200 | Problem | None:
     """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
     ABSENT; no names, no reasons)
+
+    Args:
+        department (list[str] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -116,15 +150,20 @@ def sync(
 
     return sync_detailed(
         client=client,
+        department=department,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+    department: list[str] | Unset = UNSET,
 ) -> Response[ListPresenceStatusResponse200 | Problem]:
     """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
     ABSENT; no names, no reasons)
+
+    Args:
+        department (list[str] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,7 +173,9 @@ async def asyncio_detailed(
         Response[ListPresenceStatusResponse200 | Problem]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        department=department,
+    )
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -144,9 +185,13 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+    department: list[str] | Unset = UNSET,
 ) -> ListPresenceStatusResponse200 | Problem | None:
     """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
     ABSENT; no names, no reasons)
+
+    Args:
+        department (list[str] | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,5 +204,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
+            department=department,
         )
     ).parsed
