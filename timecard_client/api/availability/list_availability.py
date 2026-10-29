@@ -112,8 +112,8 @@ def sync_detailed(
     to: str,
     department: list[str] | Unset = UNSET,
 ) -> Response[ListAvailabilityResponse200 | Problem]:
-    """Availability of all employees per day (at most 92 days): AVAILABLE, PARTIALLY_AVAILABLE, UNAVAILABLE
-    or UNKNOWN, without names, reasons or times
+    """Availability of all employees per day (at most 92 days): person id, personnel number and AVAILABLE,
+    PARTIALLY_AVAILABLE, UNAVAILABLE or UNKNOWN, without names, reasons or times
 
     Args:
         from_ (str):
@@ -148,8 +148,8 @@ def sync(
     to: str,
     department: list[str] | Unset = UNSET,
 ) -> ListAvailabilityResponse200 | Problem | None:
-    """Availability of all employees per day (at most 92 days): AVAILABLE, PARTIALLY_AVAILABLE, UNAVAILABLE
-    or UNKNOWN, without names, reasons or times
+    """Availability of all employees per day (at most 92 days): person id, personnel number and AVAILABLE,
+    PARTIALLY_AVAILABLE, UNAVAILABLE or UNKNOWN, without names, reasons or times
 
     Args:
         from_ (str):
@@ -179,8 +179,8 @@ async def asyncio_detailed(
     to: str,
     department: list[str] | Unset = UNSET,
 ) -> Response[ListAvailabilityResponse200 | Problem]:
-    """Availability of all employees per day (at most 92 days): AVAILABLE, PARTIALLY_AVAILABLE, UNAVAILABLE
-    or UNKNOWN, without names, reasons or times
+    """Availability of all employees per day (at most 92 days): person id, personnel number and AVAILABLE,
+    PARTIALLY_AVAILABLE, UNAVAILABLE or UNKNOWN, without names, reasons or times
 
     Args:
         from_ (str):
@@ -213,8 +213,8 @@ async def asyncio(
     to: str,
     department: list[str] | Unset = UNSET,
 ) -> ListAvailabilityResponse200 | Problem | None:
-    """Availability of all employees per day (at most 92 days): AVAILABLE, PARTIALLY_AVAILABLE, UNAVAILABLE
-    or UNKNOWN, without names, reasons or times
+    """Availability of all employees per day (at most 92 days): person id, personnel number and AVAILABLE,
+    PARTIALLY_AVAILABLE, UNAVAILABLE or UNKNOWN, without names, reasons or times
 
     Args:
         from_ (str):
