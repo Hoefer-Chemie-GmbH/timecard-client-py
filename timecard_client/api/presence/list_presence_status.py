@@ -104,8 +104,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     department: list[str] | Unset = UNSET,
 ) -> Response[ListPresenceStatusResponse200 | Problem]:
-    """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
-    ABSENT; no names, no reasons)
+    """Presence status of all employees: person id, personnel number and PRESENT or ABSENT only (an absence
+    with a reason is ABSENT; no names, no reasons)
 
     Args:
         department (list[str] | Unset):
@@ -134,8 +134,8 @@ def sync(
     client: AuthenticatedClient | Client,
     department: list[str] | Unset = UNSET,
 ) -> ListPresenceStatusResponse200 | Problem | None:
-    """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
-    ABSENT; no names, no reasons)
+    """Presence status of all employees: person id, personnel number and PRESENT or ABSENT only (an absence
+    with a reason is ABSENT; no names, no reasons)
 
     Args:
         department (list[str] | Unset):
@@ -159,8 +159,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     department: list[str] | Unset = UNSET,
 ) -> Response[ListPresenceStatusResponse200 | Problem]:
-    """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
-    ABSENT; no names, no reasons)
+    """Presence status of all employees: person id, personnel number and PRESENT or ABSENT only (an absence
+    with a reason is ABSENT; no names, no reasons)
 
     Args:
         department (list[str] | Unset):
@@ -187,8 +187,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     department: list[str] | Unset = UNSET,
 ) -> ListPresenceStatusResponse200 | Problem | None:
-    """Presence status of all employees: person id and PRESENT or ABSENT only (an absence with a reason is
-    ABSENT; no names, no reasons)
+    """Presence status of all employees: person id, personnel number and PRESENT or ABSENT only (an absence
+    with a reason is ABSENT; no names, no reasons)
 
     Args:
         department (list[str] | Unset):

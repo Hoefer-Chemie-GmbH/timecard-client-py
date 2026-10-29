@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 
@@ -19,14 +19,19 @@ class ListAvailabilityResponse200ItemsItem:
     """
     Attributes:
         person_id (int):
+        person_no (None | str):
         days (list[ListAvailabilityResponse200ItemsItemDaysItem]):
     """
 
     person_id: int
+    person_no: None | str
     days: list[ListAvailabilityResponse200ItemsItemDaysItem]
 
     def to_dict(self) -> dict[str, Any]:
         person_id = self.person_id
+
+        person_no: None | str
+        person_no = self.person_no
 
         days = []
         for days_item_data in self.days:
@@ -38,6 +43,7 @@ class ListAvailabilityResponse200ItemsItem:
         field_dict.update(
             {
                 "personId": person_id,
+                "personNo": person_no,
                 "days": days,
             }
         )
@@ -53,6 +59,13 @@ class ListAvailabilityResponse200ItemsItem:
         d = dict(src_dict)
         person_id = d.pop("personId")
 
+        def _parse_person_no(data: object) -> None | str:
+            if data is None:
+                return data
+            return cast(None | str, data)
+
+        person_no = _parse_person_no(d.pop("personNo"))
+
         days = []
         _days = d.pop("days")
         for days_item_data in _days:
@@ -62,6 +75,7 @@ class ListAvailabilityResponse200ItemsItem:
 
         list_availability_response_200_items_item = cls(
             person_id=person_id,
+            person_no=person_no,
             days=days,
         )
 
