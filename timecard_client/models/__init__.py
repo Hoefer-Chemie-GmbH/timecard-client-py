@@ -105,6 +105,9 @@ from .get_health_response_503_audit_db import GetHealthResponse503AuditDb
 from .get_health_response_503_status import GetHealthResponse503Status
 from .get_health_response_503_timecard import GetHealthResponse503Timecard
 from .get_me_response_200 import GetMeResponse200
+from .get_me_response_200_timecard_session_type_0 import GetMeResponse200TimecardSessionType0
+from .get_me_response_200_timecard_sessions import GetMeResponse200TimecardSessions
+from .get_me_response_200_timecard_user_type_0 import GetMeResponse200TimecardUserType0
 from .get_person_absence_overview_response_200 import GetPersonAbsenceOverviewResponse200
 from .get_person_absence_overview_response_200_items_item import GetPersonAbsenceOverviewResponse200ItemsItem
 from .get_person_absence_overview_response_200_items_item_days_item import (
@@ -259,6 +262,9 @@ from .list_work_operations_response_200 import ListWorkOperationsResponse200
 from .list_work_operations_response_200_items_item import ListWorkOperationsResponse200ItemsItem
 from .list_working_profiles_response_200 import ListWorkingProfilesResponse200
 from .list_working_profiles_response_200_items_item import ListWorkingProfilesResponse200ItemsItem
+from .open_timecard_session_body import OpenTimecardSessionBody
+from .open_timecard_session_response_201 import OpenTimecardSessionResponse201
+from .open_timecard_session_response_201_session import OpenTimecardSessionResponse201Session
 from .problem import Problem
 from .problem_errors_item import ProblemErrorsItem
 from .problem_upstream import ProblemUpstream
@@ -439,6 +445,9 @@ __all__ = (
     "GetHealthResponse503Status",
     "GetHealthResponse503Timecard",
     "GetMeResponse200",
+    "GetMeResponse200TimecardSessions",
+    "GetMeResponse200TimecardSessionType0",
+    "GetMeResponse200TimecardUserType0",
     "GetPersonAbsenceOverviewResponse200",
     "GetPersonAbsenceOverviewResponse200ItemsItem",
     "GetPersonAbsenceOverviewResponse200ItemsItemDaysItem",
@@ -551,6 +560,9 @@ __all__ = (
     "ListWorkingProfilesResponse200ItemsItem",
     "ListWorkOperationsResponse200",
     "ListWorkOperationsResponse200ItemsItem",
+    "OpenTimecardSessionBody",
+    "OpenTimecardSessionResponse201",
+    "OpenTimecardSessionResponse201Session",
     "Problem",
     "ProblemErrorsItem",
     "ProblemUpstream",
