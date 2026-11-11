@@ -262,6 +262,10 @@ from .list_work_operations_response_200 import ListWorkOperationsResponse200
 from .list_work_operations_response_200_items_item import ListWorkOperationsResponse200ItemsItem
 from .list_working_profiles_response_200 import ListWorkingProfilesResponse200
 from .list_working_profiles_response_200_items_item import ListWorkingProfilesResponse200ItemsItem
+from .lookup_presence_body import LookupPresenceBody
+from .lookup_presence_response_200 import LookupPresenceResponse200
+from .lookup_presence_response_200_items_item import LookupPresenceResponse200ItemsItem
+from .lookup_presence_response_200_items_item_status import LookupPresenceResponse200ItemsItemStatus
 from .open_timecard_session_body import OpenTimecardSessionBody
 from .open_timecard_session_response_201 import OpenTimecardSessionResponse201
 from .open_timecard_session_response_201_session import OpenTimecardSessionResponse201Session
@@ -560,6 +564,10 @@ __all__ = (
     "ListWorkingProfilesResponse200ItemsItem",
     "ListWorkOperationsResponse200",
     "ListWorkOperationsResponse200ItemsItem",
+    "LookupPresenceBody",
+    "LookupPresenceResponse200",
+    "LookupPresenceResponse200ItemsItem",
+    "LookupPresenceResponse200ItemsItemStatus",
     "OpenTimecardSessionBody",
     "OpenTimecardSessionResponse201",
     "OpenTimecardSessionResponse201Session",
